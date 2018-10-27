@@ -1,20 +1,26 @@
 var optaviaController = {
   model: optaviaModel,
   calc: optaviaCalculator,
+  factory: FoodFactory,
 
   updateModel: function() {
-    this.model.calories = parseInt(document.getElementById("caloriesInput").value);
-    this.model.carbs = parseInt(document.getElementById("carbsInput").value);
-    this.model.fat = parseInt(document.getElementById("fatInput").value);
-    this.model.protien = parseInt(document.getElementById("protienInput").value);
+
+    var calories = parseInt(document.getElementById("caloriesInput").value);
+    var carbs = parseInt(document.getElementById("carbsInput").value);
+    var fat = parseInt(document.getElementById("fatInput").value);
+    var protien = parseInt(document.getElementById("protienInput").value);
+
+    var food = this.factory.createFood(calories, carbs, fat, protien);
+    this.model.selectedFood = food;
   },
 
   refreshValues: function() {
-    var isLean = this.calc.isLeanOption(this.model);
-    var leanType = this.calc.calcLeanType(this.model);
-    var isHealthyFat = this.calc.isHealthyFat(this.model);
-    var isCondiment = this.calc.isCondiment(this.model);
-    var isGreen = this.calc.isGreen(this.model);
+    var food  = this.model.selectedFood;
+    var isLean = this.calc.isLeanOption(food);
+    var leanType = this.calc.calcLeanType(food);
+    var isHealthyFat = this.calc.isHealthyFat(food);
+    var isCondiment = this.calc.isCondiment(food);
+    var isGreen = this.calc.isGreen(food);
 
     document.getElementById("modelTest").textContent = this.model.details();
 
