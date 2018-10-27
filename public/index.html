@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Optavia Servings Helper</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDQBtoyXhiMJM-wh3l9fselzFaCXhSD4AI",
+        authDomain: "optavia-servings-helper.firebaseapp.com",
+        databaseURL: "https://optavia-servings-helper.firebaseio.com",
+        projectId: "optavia-servings-helper",
+        storageBucket: "optavia-servings-helper.appspot.com",
+        messagingSenderId: "162333625527"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="OptaviaModel.js"></script>
+    <script src="OptaviaCalculator.js"></script>
+    <script src="OptaviaController.js"></script>
+
+  </head>
+  <body>
+    Calories: <input id="caloriesInput" type="number" name="calories" min="0" value="0"/><br/>
+    Carbs: <input id="carbsInput" type="number" name="carbs" min="0" value="0"/><br/>
+    Fat: <input id="fatInput" type="number" name="fat" min="0" value="0"/><br/>
+    Protien: <input id="protienInput" type="number" name="protien" min="0" value="0"/><br/>
+
+    <button type="button" onclick="optaviaController.updateModel();optaviaController.refreshValues();">Calculate!</button>
+
+    <p id="modelTest"></p>
+    <p>Is Lean Option:</p><p id="leanDetails"></p>
+    <p>Lean type:</p><p id="leanType"></p>
+    <p>Is healthy fat:</p><p id="fatDetails"></p>
+    <p>Is condiment:</p><p id="condimentDetails"></p>
+    <p>Is green:</p><p id="greenDetails"></p>
+
+  </body>
+  <script src="test.js"></script>
+</html>
