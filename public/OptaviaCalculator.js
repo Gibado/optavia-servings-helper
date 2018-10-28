@@ -1,62 +1,60 @@
 // TODO add methods to calculate what different portions would meet the criteria for the following checks
 var optaviaCalculator = {
-  isLeanOption: function(model) {
-    var resultBool = true;
-    if (model.calories < 250 || model.calories > 300) {
-      resultBool = false;
-    } else if (model.protien < 25) {
-      resultBool = false;
-    } else if (model.carbs > 15) {
-      resultBool = false;
-    }
-
-    return resultBool;
+  getLeanBounds: function() {
+    return [Scalar.createBounds("calories", 250, 300),
+        Scalar.createBounds("protien", 25, null),
+        Scalar.createBounds("carbs", 0, 15)];
   },
 
-  calcLeanType: function(model) {
-    if (model.fat < 0) {
-      return "invalid fat level: " + model.fat;
-    } else if (model.fat < 5) {
-      return "leanest";
-    } else if (model.fat < 10) {
-      return "leaner";
-    } else {
-      return "lean";
-    }
+  isLeanOption: function(food) {
+    var bounds =this.getLeanBounds();
+    bounds.push(Scalar.createBounds("fat", 10, null));
+
+    var results = Scalar.scaleIntoBounds(food, bounds);
+
+    return food.outputServings(results);
   },
 
-  isHealthyFat: function(model) {
-    var resultBool = true;
-    if (model.calories < 45 || model.calories > 60) {
-      resultBool = false;
-    } else if (model.fat < 3 || model.fat > 6) {
-      resultBool = false;
-    } else if (model.carbs >= 5) {
-      resultBool = false;
-    }
+  isLeanerOption: function(food) {
+    var bounds =this.getLeanBounds();
+    bounds.push(Scalar.createBounds("fat", 5, 10));
 
-    return resultBool;
+    var results = Scalar.scaleIntoBounds(food, bounds);
+
+    return food.outputServings(results);
   },
 
-  isCondiment: function(model) {
-    var resultBool = true;
-    if (model.calories >= 30) {
-      resultBool = false;
-    } else if (model.carbs >= 1) {
-      resultBool = false;
-    }
+  isLeanestOption: function(food) {
+    var bounds =this.getLeanBounds();
+    bounds.push(Scalar.createBounds("fat", 0, 5));
 
-    return resultBool;
+    var results = Scalar.scaleIntoBounds(food, bounds);
+
+    return food.outputServings(results);
   },
 
-  isGreen: function(model) {
-    var resultBool = true;
-    if (model.calories > 25) {
-      resultBool = false;
-    } else if (model.carbs > 5) {
-      resultBool = false;
-    }
+  isHealthyFat: function(food) {
+    var bounds = [Scalar.createBounds("calories", 45, 60),
+        Scalar.createBounds("fat", 4, 6),
+        Scalar.createBounds("carbs", 0, 5)];
+    var results = Scalar.scaleIntoBounds(food, bounds);
 
-    return resultBool;
+    return food.outputServings(results);
+  },
+
+  isCondiment: function(food) {
+    var bounds = [Scalar.createBounds("calories", 0, 30),
+        Scalar.createBounds("carbs", 0, 1)];
+    var results = Scalar.scaleIntoBounds(food, bounds);
+
+    return food.outputServings(results);
+  },
+
+  isGreen: function(food) {
+    var bounds = [Scalar.createBounds("calories", 0, 25),
+        Scalar.createBounds("carbs", 0, 5)];
+    var results = Scalar.scaleIntoBounds(food, bounds);
+
+    return food.outputServings(results);
   }
 }

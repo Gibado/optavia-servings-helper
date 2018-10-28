@@ -15,12 +15,16 @@
       firebase.initializeApp(config);
     </script>
     <script src="Food.js"></script>
+    <script src="Scalar.js"></script>
     <script src="OptaviaModel.js"></script>
     <script src="OptaviaCalculator.js"></script>
     <script src="OptaviaController.js"></script>
 
   </head>
   <body>
+    Name: <input id="nameInput" type="text" name="name" value="My food"/><br/>
+    Size: <input id="sizeInput" type="number" name="size" min="0" value="1"/><br/>
+    Units: <input id="unitsInput" type="text" name="units" value="Cups?"/><br/>
     Calories: <input id="caloriesInput" type="number" name="calories" min="0" value="0"/><br/>
     Carbs: <input id="carbsInput" type="number" name="carbs" min="0" value="0"/><br/>
     Fat: <input id="fatInput" type="number" name="fat" min="0" value="0"/><br/>
@@ -29,11 +33,10 @@
     <button type="button" onclick="optaviaController.updateModel();optaviaController.refreshValues();">Calculate!</button>
 
     <p id="modelTest"></p>
-    <p>Is Lean Option:</p><p id="leanDetails"></p>
-    <p>Lean type:</p><p id="leanType"></p>
-    <p>Is healthy fat:</p><p id="fatDetails"></p>
-    <p>Is condiment:</p><p id="condimentDetails"></p>
-    <p>Is green:</p><p id="greenDetails"></p>
+    <p>Lean options:</p><p id="leanType"></p>
+    <p>As healthy fat:</p><p id="fatDetails"></p>
+    <p>As condiment:</p><p id="condimentDetails"></p>
+    <p>As green:</p><p id="greenDetails"></p>
 
   </body>
   <!-- <script src="test.js"></script> -->
